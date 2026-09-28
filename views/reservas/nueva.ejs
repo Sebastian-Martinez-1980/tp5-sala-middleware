@@ -1,0 +1,61 @@
+<section class="panel-formulario">
+
+    <p class="etiqueta">NUEVA RESERVA</p>
+
+    <h1>
+        <%= titulo %>
+    </h1>
+
+
+ <% if (errores && errores.length > 0) { %>
+    <div class="errores">
+        <h3>Hay errores en el formulario:</h3>
+
+        <ul>
+            <% errores.forEach(error => { %>
+                <li><%= error %></li>
+            <% }); %>
+        </ul>
+    </div>
+<% } %>
+
+ 
+            <form action="/reservas" method="post" class="formulario">
+
+                <label for="estudiante">Estudiante</label>
+                <input id="estudiante" name="estudiante" value="<%= valores.estudiante ?? '' %>" required>
+
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" value="<%= valores.email ?? '' %>" required>
+
+                <label for="fecha">Fecha</label>
+                <input id="fecha" name="fecha" type="date" value="<%= valores.fecha ?? '' %>" required>
+
+                <label for="turno">Turno</label>
+                <select id="turno" name="turno" required>
+                    <option value="">Selecciona una sala</option>
+                    <% turnosPermitidos.forEach(turno=> { %>
+                        <%= valores.turno === turno ? "selected" : "" %>>
+                        <option value="<%= turno %>">
+                            <%= turno %>
+                        </option>
+                        <% }); %>
+                </select>
+
+                <label for="personas">Cantidad de personas</label>
+                <input id="personas" name="personas" type="number" min="1" max="6" step="1"
+                    value="<%= valores.personas ?? '' %>" required>
+
+                <label for="sala">Sala</label>
+                <select id="sala" name="sala" required>
+                    <option value="">Selecciona una sala</option>
+                    <% salasPermitidas.forEach(sala=> { %>
+                        <%= valores.sala === sala ? "selected" : "" %>>
+                        <option value="<%= sala %>">
+                            <%= sala %>
+                        </option>
+                        <% }); %>
+                </select>
+                <button type="submit">Guardar reserva</button>
+            </form>
+</section>
